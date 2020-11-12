@@ -1,0 +1,12 @@
+{
+    "name": "mirthe/photogrid",
+    "description": "Shows photos from Flickr based on tag(s) or set ID",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mirthe Valentijn",
+            "email": "me@Mirthe.org"
+        }
+    ]
+}
