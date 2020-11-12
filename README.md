@@ -2,12 +2,20 @@
 
 This plugin allows you to place photo's from Flickr on your pages.
 
-## Example 
+## Git submodule
+
+```
+git submodule add https://github.com/mirthe/kirby_photogrid.git site/plugins/photogrid
+```
+
+## Usage
 
 Add the following to your config:
 
     'flickr.apiKey' => 'XX',
-    'flickr.userID' => 'XX',
+    'flickr.userID' => 'XX'
+
+## Example 
 
 Placed for example with 
 
