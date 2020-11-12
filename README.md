@@ -13,7 +13,7 @@ Placed for example with
 
     (photogrid: tags: Amorphis,013,20200125,fav)
 
-![Example of plugin in use](image: ./example.png?raw=true)
+![Example of plugin in use](image: /example.png?raw=true)
 
 ## Todo
 
