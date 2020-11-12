@@ -13,7 +13,7 @@ Placed for example with
 
     (photogrid: tags: Amorphis,013,20200125,fav)
 
-[Example of plugin in use](image: ./example.png)
+[Example of plugin in use](image: https://raw.githubusercontent.com/mirthe/kirby_photogrid/master/example.png)
 
 ## Todo
 
