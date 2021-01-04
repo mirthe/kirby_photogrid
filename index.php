@@ -33,6 +33,7 @@ Kirby::plugin('mirthe/photogrid', [
                 $callsize = "medium";
                 if ( $tag->size != "" ) {$callsize = $tag->size;}
                 if ( $callsize == 'small' ) {$size = 't';} else {$size = 'w';}
+                // q is a square of 150x150
                 
                 $url = 'http://api.flickr.com/services/rest/?';
                 $url.= 'api_key='.$api_key;
