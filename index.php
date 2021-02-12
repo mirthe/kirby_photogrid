@@ -88,8 +88,9 @@ Kirby::plugin('mirthe/photogrid', [
                     // TODO owner ophalen met flickr.photos.getInfo als ik plugin wil aanbieden
                     $photo_link = 'https://www.flickr.com/photos/mirthe/'.$photo_id;
                     
-                    $mijnoutput .= '<li><a href="'.$photo_link.'" title="'.$title.'">
-                        <img loading="lazy" alt="" src="'.$photo_url.'">
+                    // TODO figure met figcaption van maken
+                    $mijnoutput .= '<li><a href="'.$photo_link.'">
+                        <img loading="lazy" alt="'.$title.'" src="'.$photo_url.'">
                         <span>'.$title.'</span>
                     </a></li>'. "\n";  
                 }
