@@ -21,7 +21,7 @@ Placed for example with
 
     (photogrid: tags: Amorphis,013,20200125,fav)
 
-![Example of plugin in use](image: /example.png?raw=true)
+<img src="https://github.com/mirthe/kirby_photogrid/blob/4ce378bed479711b283bd766764f97f2895c5a36/example.png" alt="Example of usage">
 
 ## Todo
 
