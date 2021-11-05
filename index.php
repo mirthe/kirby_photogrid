@@ -26,23 +26,24 @@ Kirby::plugin('mirthe/photogrid', [
                 $api_key = option('flickr.apiKey');
                 $user_id = option('flickr.userID');
 
-                $perPage = 50;
-
                 // https://www.flickr.com/services/api/misc.urls.html
-
                 $callsize = "medium";
                 if ( $tag->size != "" ) {$callsize = $tag->size;}
                 if ( $callsize == 'small' ) {$size = 't';} else {$size = 'w';}
-                // q is a square of 150x150
                 
+                $page = isset($_GET['p']) ? $_GET['p'] : 1;
+                $perPage = 30;
+
                 $url = 'http://api.flickr.com/services/rest/?';
                 $url.= 'api_key='.$api_key;
                 $url.= '&user_id='.$user_id;
                 $url.= '&per_page='.$perPage;
+                $url.= '&page='.$page;
                 $url.= '&format=json';
                 $url.= '&nojsoncallback=1';
                 $url.= '&media=photos';
-                $url.= '&sort=interestingness-desc';
+                $url.= '&sort=date-taken-desc';
+                //$url.= '&sort=interestingness-desc';
                     
                 if ( $setid != "" )
                 {
@@ -54,6 +55,7 @@ Kirby::plugin('mirthe/photogrid', [
 
                     $response = json_decode(file_get_contents($url));
                     $photo_array = $response->photoset->photo;
+                    $page_count = $response->photoset->pages;
                 }
                 elseif ( $tagselection != "" ) {
                     $url.= '&method=flickr.photos.search';
@@ -64,15 +66,12 @@ Kirby::plugin('mirthe/photogrid', [
 
                     $response = json_decode(file_get_contents($url));
                     $photo_array = $response->photos->photo;
+                    $page_count = 1;
                 }
 
                 else {
                     // error teruggeven?
                 }
-                
-                // TODO img naar modal vergroten?
-                // TODO bladeren toevoegen
-                // TODO een title toevoegen met datum en misschien desc
                 
                 $mijnoutput = '<ul class="photogrid photogrid--'.$callsize.'">'. "\n";
                 foreach($photo_array as $single_photo){
@@ -84,20 +83,38 @@ Kirby::plugin('mirthe/photogrid', [
                     $title = $single_photo->title;
                     
                     $photo_url = 'https://farm'.$farm_id.'.staticflickr.com/'.$server_id.'/'.$photo_id.'_'.$secret_id.'_'.$size.'.'.'jpg';
+                    $photo_url_big = 'https://farm'.$farm_id.'.staticflickr.com/'.$server_id.'/'.$photo_id.'_'.$secret_id.'_b.jpg';
                     
                     // TODO owner ophalen met flickr.photos.getInfo als ik plugin wil aanbieden
                     $photo_link = 'https://www.flickr.com/photos/mirthe/'.$photo_id;
-                    
-                    // TODO figure met figcaption van maken
-                    $mijnoutput .= '<li><a href="'.$photo_link.'">
-                        <img loading="lazy" alt="'.$title.'" src="'.$photo_url.'">
+                    $photo_caption = $title . ' <a href='.$photo_link.' class=floatright>Bekijk op Flickr.com</a>';
+
+                    $mijnoutput .= '<li><a href="'.$photo_url_big.'">
+                        <img loading="lazy" alt="'.$title.'" data-caption="'.$photo_caption.'" src="'.$photo_url.'">
                         <span>'.$title.'</span>
                     </a></li>'. "\n";  
                 }
                 $mijnoutput .= "<li></li>\n</ul>\n";
 
-                $mijnoutput .= '<p><small><a class="lees-meer" href="'.$flickr_link.'">'."Foto's bekijken op Flickr".'</a></small></p>';
-
+                // pagination
+                $back_page = $page - 1; 
+                $next_page = $page + 1; 
+                
+                if($page_count > 1) {
+                    $mijnoutput .= '<ul class="photogrid--browse list-horizontal">';
+                    if($page > 1) {$mijnoutput .= "<li><a href='?p=$back_page'>&laquo; Vorige</a></li>";} else { $mijnoutput .= "<li></li>";} 
+                    $mijnoutput .= '<li><a href="'.$flickr_link.'">'."Foto's bekijken op Flickr".'</a></li>';
+                    if($page != $page_count) {$mijnoutput .= "<li><a href='?p=$next_page'>Volgende &raquo;</a></li>";} else { $mijnoutput .= "<li></li>";} 
+                    $mijnoutput .= "</ul>";
+                } else {
+                    $mijnoutput .= '<p><small><a class="lees-meer" href="'.$flickr_link.'">'."Foto's bekijken op Flickr".'</a></small></p>';
+                }
+                
+                // TODO lightbox..
+                // $mijnoutput .= '<link href="/media/plugins/mirthe/photogrid/assets/simple-lightbox.min.css" rel="stylesheet">
+                // <script src="/media/plugins/mirthe/photogrid/assets/simple-lightbox.min.js">
+                // <script src="/media/plugins/mirthe/photogrid/assets/simple-lightbox.init.js">';
+                
                 return $mijnoutput;
             }
         ]
