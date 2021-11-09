@@ -110,11 +110,6 @@ Kirby::plugin('mirthe/photogrid', [
                     $mijnoutput .= '<p><small><a class="lees-meer" href="'.$flickr_link.'">'."Foto's bekijken op Flickr".'</a></small></p>';
                 }
                 
-                // TODO lightbox..
-                // $mijnoutput .= '<link href="/media/plugins/mirthe/photogrid/assets/simple-lightbox.min.css" rel="stylesheet">
-                // <script src="/media/plugins/mirthe/photogrid/assets/simple-lightbox.min.js">
-                // <script src="/media/plugins/mirthe/photogrid/assets/simple-lightbox.init.js">';
-                
                 return $mijnoutput;
             }
         ]
