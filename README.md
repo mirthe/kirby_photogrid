@@ -15,6 +15,8 @@ Add the following to your config:
     'flickr.apiKey' => 'XX',
     'flickr.userID' => 'XX'
 
+You can load the js and css from https://simplelightbox.com/ to have the bigger image appear in a lightbox.
+
 ## Example 
 
 Placed for example with 
@@ -29,7 +31,7 @@ Placed for example with
 - Might rename to FlickrGrid, or incorporate other services
 - Add sample SCSS to this readme
 - Cleanup code
-- Add bigger image in lightbox
+- Improve lightbox initialisation
 - Add option to display smaller image in grid
 - Add pagination
 - Add title and date
