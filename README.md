@@ -33,6 +33,5 @@ Placed for example with
 - Cleanup code
 - Improve lightbox initialisation
 - Add option to display smaller image in grid
-- Add pagination
 - Add title and date
 - Lots..
