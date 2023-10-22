@@ -1,5 +1,5 @@
 {
-    "name": "mirthe/photogrid",
+    "name": "mirthe/kirby_photogrid",
     "version": "1.0",
     "description": "Shows photos from Flickr based on tag(s) or set ID",
     "homepage": "https://github.com/mirthe/kirby_photogrid",
