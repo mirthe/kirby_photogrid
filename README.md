@@ -13,7 +13,8 @@ git submodule add https://github.com/mirthe/kirby_photogrid.git site/plugins/pho
 Add the following to your config:
 
     'flickr.apiKey' => 'XX',
-    'flickr.userID' => 'XX'
+    'flickr.userID' => 'XX',
+    'flickr.username' => 'XX'
 
 You can load the js and css from https://simplelightbox.com/ to have the bigger image appear in a lightbox.
 

@@ -3,8 +3,6 @@
 // TODO opschonen en aanbieden?
 // https://getkirby.com/docs/guide/plugins/best-practices
 
-// TODO Aparte git repo of submodule van maken?
-
 // TODO size mee kunnen geven voor kleinere beelden, bijv die post met die puzzels
 
 Kirby::plugin('mirthe/photogrid', [
@@ -25,6 +23,7 @@ Kirby::plugin('mirthe/photogrid', [
 
                 $api_key = option('flickr.apiKey');
                 $user_id = option('flickr.userID');
+                $user_name = option('flickr.username');
 
                 // https://www.flickr.com/services/api/misc.urls.html
                 $callsize = "medium";
@@ -51,7 +50,7 @@ Kirby::plugin('mirthe/photogrid', [
                     $url.= '&method=flickr.photosets.getPhotos';
                     $url.= '&photoset_id='.$setid;
                     
-                    $flickr_link = "https://www.flickr.com/photos/mirthe/albums/" . $setid;
+                    $flickr_link = "https://www.flickr.com/photos/".$user_name."/albums/" . $setid;
 
                     $response = json_decode(file_get_contents($url));
                     $photo_array = $response->photoset->photo;
@@ -62,7 +61,7 @@ Kirby::plugin('mirthe/photogrid', [
                     $url.= '&tags='.$tagselection;
                     $url.= '&tag_mode=all';
 
-                    $flickr_link = "https://www.flickr.com/search/?user_id=17324502%40N00&view_all=1&tags=" . $tagselection;
+                    $flickr_link = "https://www.flickr.com/search/?user_id=".$user_id."&view_all=1&tags=" . $tagselection;
 
                     $response = json_decode(file_get_contents($url));
                     $photo_array = $response->photos->photo;
@@ -86,7 +85,7 @@ Kirby::plugin('mirthe/photogrid', [
                     $photo_url_big = 'https://farm'.$farm_id.'.staticflickr.com/'.$server_id.'/'.$photo_id.'_'.$secret_id.'_b.jpg';
                     
                     // TODO owner ophalen met flickr.photos.getInfo als ik plugin wil aanbieden
-                    $photo_link = 'https://www.flickr.com/photos/mirthe/'.$photo_id;
+                    $photo_link = 'https://www.flickr.com/photos/'.$user_name.'/'.$photo_id;
                     $photo_caption = $title . ' <a href='.$photo_link.' class=floatright>Bekijk op Flickr.com</a>';
 
                     $mijnoutput .= '<li><a href="'.$photo_url_big.'">
@@ -97,8 +96,8 @@ Kirby::plugin('mirthe/photogrid', [
                 $mijnoutput .= "<li></li>\n</ul>\n";
 
                 // pagination
-                $back_page = $page - 1; 
-                $next_page = $page + 1; 
+                $back_page = $page - 1;
+                $next_page = $page + 1;
                 
                 if($page_count > 1) {
                     $mijnoutput .= '<ul class="photogrid--browse list-horizontal">';
