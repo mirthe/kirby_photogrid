@@ -31,12 +31,12 @@ Kirby::plugin('mirthe/photogrid', [
                 if ( $callsize == 'small' ) {$size = 't';} else {$size = 'w';}
                 
                 $page = isset($_GET['p']) ? $_GET['p'] : 1;
-                $perPage = 30;
+                $perPage = 50;
 
                 $url = 'http://api.flickr.com/services/rest/?';
                 $url.= 'api_key='.$api_key;
                 $url.= '&user_id='.$user_id;
-                // $url.= '&per_page='.$perPage;
+                $url.= '&per_page='.$perPage;
                 $url.= '&page='.$page;
                 $url.= '&format=json';
                 $url.= '&nojsoncallback=1';
@@ -48,7 +48,6 @@ Kirby::plugin('mirthe/photogrid', [
                 {
                     // als tag een nummer is, de set ophalen..
                     $url.= '&method=flickr.photosets.getPhotos';
-                    $url.= '&per_page=30';
                     $url.= '&photoset_id='.$setid;
                     
                     $flickr_link = "https://www.flickr.com/photos/".$user_name."/albums/" . $setid;
@@ -59,7 +58,6 @@ Kirby::plugin('mirthe/photogrid', [
                 }
                 elseif ( $tagselection != "" ) {
                     $url.= '&method=flickr.photos.search';
-                    $url.= '&per_page=50';
                     $url.= '&tags='.$tagselection;
                     $url.= '&tag_mode=all';
 
