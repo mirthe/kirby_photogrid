@@ -36,7 +36,7 @@ Kirby::plugin('mirthe/photogrid', [
                 $url = 'http://api.flickr.com/services/rest/?';
                 $url.= 'api_key='.$api_key;
                 $url.= '&user_id='.$user_id;
-                $url.= '&per_page='.$perPage;
+                // $url.= '&per_page='.$perPage;
                 $url.= '&page='.$page;
                 $url.= '&format=json';
                 $url.= '&nojsoncallback=1';
@@ -48,23 +48,26 @@ Kirby::plugin('mirthe/photogrid', [
                 {
                     // als tag een nummer is, de set ophalen..
                     $url.= '&method=flickr.photosets.getPhotos';
+                    $url.= '&per_page=30';
                     $url.= '&photoset_id='.$setid;
                     
                     $flickr_link = "https://www.flickr.com/photos/".$user_name."/albums/" . $setid;
-
+                    
                     $response = json_decode(file_get_contents($url));
                     $photo_array = $response->photoset->photo;
                     $page_count = $response->photoset->pages;
                 }
                 elseif ( $tagselection != "" ) {
                     $url.= '&method=flickr.photos.search';
+                    $url.= '&per_page=50';
                     $url.= '&tags='.$tagselection;
                     $url.= '&tag_mode=all';
 
                     $flickr_link = "https://www.flickr.com/search/?user_id=".$user_id."&view_all=1&tags=" . $tagselection;
-
+                   
                     $response = json_decode(file_get_contents($url));
                     $photo_array = $response->photos->photo;
+                    //$page_count = $response->photos->pages;
                     $page_count = 1;
                 }
 
@@ -91,7 +94,7 @@ Kirby::plugin('mirthe/photogrid', [
                     $mijnoutput .= '<li><a href="'.$photo_url_big.'">
                         <img loading="lazy" alt="'.$title.'" data-caption="'.$photo_caption.'" src="'.$photo_url.'">
                         <span>'.$title.'</span>
-                    </a></li>'. "\n";  
+                    </a></li>'. "\n";
                 }
                 $mijnoutput .= "<li></li>\n</ul>\n";
 
@@ -114,5 +117,3 @@ Kirby::plugin('mirthe/photogrid', [
         ]
     ]
 ]);
-
-?>
