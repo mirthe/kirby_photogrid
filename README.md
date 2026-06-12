@@ -26,7 +26,7 @@ Placed for example with a selection of tags:
 
 Or all the photo's in a set:
 
-(photogrid: set: 123)
+    (photogrid: set: 123)
 
 To load a single Flickr photo with its photo ID:
 
