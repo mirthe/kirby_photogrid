@@ -16,6 +16,8 @@ Kirby::plugin('mirthe/photogrid', [
             'attr' => [
                 'set',
                 'tags',
+                'photo',
+                'pos',
                 'size'
             ],
             'html' => function ($tag) {
