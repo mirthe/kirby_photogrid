@@ -13,7 +13,7 @@ if (!function_exists('mirthe_photogrid_renderPhotoGrid')) {
             $photo_url = 'https://farm' . $farm_id . '.staticflickr.com/' . $server_id . '/' . $photo_id . '_' . $secret_id . '_' . $size . '.jpg';
             $photo_url_big = 'https://farm' . $farm_id . '.staticflickr.com/' . $server_id . '/' . $photo_id . '_' . $secret_id . '_b.jpg';
             $photo_link = 'https://www.flickr.com/photos/' . $user_name . '/' . $photo_id;
-            $photo_caption = $title . ' <a href="' . $photo_link . '" class="floatright">Bekijk op Flickr.com</a>';
+            $photo_caption = $title . ' <a href="' . $photo_link . '" class="floatright">' . t('mirthe.photogrid.view-on-flickr-com') . '</a>';
             $photo_caption = htmlspecialchars($photo_caption, ENT_QUOTES, 'UTF-8');
 
             $output .= '<li><a href="' . $photo_url_big . '">' .
@@ -29,12 +29,12 @@ if (!function_exists('mirthe_photogrid_renderPhotoGrid')) {
 
         if ($page_count > 1) {
             $output .= '<ul class="photogrid--browse list-horizontal">';
-            $output .= $page > 1 ? '<li><a href="?p=' . $back_page . '">&laquo; Vorige</a></li>' : '<li></li>';
-            $output .= '<li><a href="' . $flickr_link . '">Foto\'s bekijken op Flickr</a></li>';
-            $output .= $page !== $page_count ? '<li><a href="?p=' . $next_page . '">Volgende &raquo;</a></li>' : '<li></li>';
+            $output .= $page > 1 ? '<li><a href="?p=' . $back_page . '">&laquo; ' . t('mirthe.photogrid.previous') . '</a></li>' : '<li></li>';
+            $output .= '<li><a href="' . $flickr_link . '">' . t('mirthe.photogrid.view-on-flickr') . '</a></li>';
+            $output .= $page !== $page_count ? '<li><a href="?p=' . $next_page . '">' . t('mirthe.photogrid.next') . ' &raquo;</a></li>' : '<li></li>';
             $output .= '</ul>';
         } else {
-            $output .= '<p><small><a class="lees-meer" href="' . $flickr_link . '">Foto\'s bekijken op Flickr</a></small></p>';
+            $output .= '<p><small><a class="lees-meer" href="' . $flickr_link . '">' . t('mirthe.photogrid.view-on-flickr') . '</a></small></p>';
         }
 
         return $output;

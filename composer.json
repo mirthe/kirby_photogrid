@@ -1,6 +1,6 @@
 {
     "name": "mirthe/kirby_photogrid",
-    "version": "1.2",
+    "version": "1.3",
     "description": "Shows photos from Flickr based on tag(s) or set ID",
     "homepage": "https://github.com/mirthe/kirby_photogrid",
     "keywords": ["kirby-plugin", "flickr", "photography", "grid"],
