@@ -5,8 +5,9 @@ if (!function_exists('mirthe_photogrid_fetch')) {
         $cache = kirby()->cache('mirthe.photogrid');
         $cacheKey = 'flickr-' . sha1($url);
         $cached = $cache->get($cacheKey);
+        $force = isset($_GET['forcecache']);
 
-        if ($cached !== null) {
+        if ($cached !== null || $force) {
             return is_array($cached) ? json_decode(json_encode($cached)) : $cached;
         }
 
