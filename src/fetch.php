@@ -7,7 +7,7 @@ if (!function_exists('mirthe_photogrid_fetch')) {
         $cached = $cache->get($cacheKey);
         $force = isset($_GET['forcecache']);
 
-        if ($cached !== null || $force) {
+        if ($cached !== null && !$force) {
             return is_array($cached) ? json_decode(json_encode($cached)) : $cached;
         }
 

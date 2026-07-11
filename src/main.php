@@ -41,6 +41,7 @@ if (!function_exists('mirthe_photogrid')) {
             '&format=json' .
             '&nojsoncallback=1' .
             '&media=photos' .
+            '&content_types=0,1,2,3' .
             '&sort=date-taken-desc';
 
         if ($setid !== '') {
