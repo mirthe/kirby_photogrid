@@ -14,7 +14,8 @@ if (!function_exists('mirthe_photogrid_getPhotoInfo')) {
             '&nojsoncallback=1';
 
         $response = mirthe_photogrid_fetch($url);
-        if ($response === null || !isset($response->photo)) {
+        $force = isset($_GET['forcecache']);
+        if ($response === null || $force || !isset($response->photo)) {
             return null;
         }
 
