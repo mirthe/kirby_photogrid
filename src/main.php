@@ -5,6 +5,7 @@ if (!function_exists('mirthe_photogrid')) {
         $setid = (string) $tag->set;
         $tagselection = (string) $tag->tags;
         $photoid = (string) $tag->photo;
+        $selection = trim((string) $tag->selection);
         $api_key = (string) option('flickr.apiKey');
         $user_id = (string) option('flickr.userID');
         $user_name = (string) option('flickr.username');
@@ -13,16 +14,42 @@ if (!function_exists('mirthe_photogrid')) {
             return '';
         }
 
-        if ($photoid === '' && $user_id === '') {
+        if ($photoid === '' && $selection === '' && $user_id === '') {
             return '';
         }
 
         $callsize = $tag->size ?: 'medium';
         $size = $callsize === 'small' ? 't' : 'w';
         $position = strtolower(trim((string) $tag->pos));
-        $position = in_array($position, ['left', 'right', 'full'], true) ? $position : 'full';
+        $position = in_array($position, ['left', 'right', 'full', 'wide', 'fullwidth'], true) ? $position : 'full';
         $page = isset($_GET['p']) ? (int) $_GET['p'] : 1;
         $perPage = 50;
+
+        if ($selection !== '') {
+            $photo_ids = array_map('trim', explode('|', $selection));
+            if (count($photo_ids) < 2 || count(array_filter($photo_ids, static function (string $id): bool {
+                return preg_match('/^\d+$/D', $id) !== 1;
+            })) > 0) {
+                return '';
+            }
+
+            $layout = strtolower(trim((string) $tag->pos));
+            $allowed_layouts = ['1/1', '1/2', '2/1', 'natural-2', 'natural-3'];
+            if (!in_array($layout, $allowed_layouts, true)) {
+                $layout = '1/1';
+            }
+
+            $photos = [];
+            foreach ($photo_ids as $photo_id) {
+                $photo_info = mirthe_photogrid_getPhotoInfo($photo_id, $api_key);
+                if ($photo_info === null) {
+                    return '';
+                }
+                $photos[] = $photo_info;
+            }
+
+            return mirthe_photogrid_renderSelection($photos, $user_name, $callsize, $layout);
+        }
 
         if ($photoid !== '') {
             $photo_info = mirthe_photogrid_getPhotoInfo($photoid, $api_key);

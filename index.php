@@ -44,6 +44,7 @@ Kirby::plugin('mirthe/photogrid', [
                 'set',
                 'tags',
                 'photo',
+                'selection',
                 'pos',
                 'size'
             ],
