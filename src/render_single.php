@@ -21,7 +21,7 @@ if (!function_exists('mirthe_photogrid_renderSinglePhoto')) {
         if ($position === 'left' || $position === 'right') {
             $img_class = $position === 'left' ? 'floatleft' : 'floatright';
             $output = '<figure class="' . $img_class . '"><a href="' . $photo_link . '">' .
-                '<img loading="lazy" alt="' . $title . '" src="' . $photo_url . '">' .
+                '<img loading="lazy" title="' . $title . '" src="' . $photo_url . '">' .
                 '</a></figure>';
 
             return $output;
@@ -30,12 +30,8 @@ if (!function_exists('mirthe_photogrid_renderSinglePhoto')) {
         $imgwide_class = in_array($position, ['wide', 'fullwidth'], true) ? 'imgwide imgwide--' . $position : 'imgwide';
         $output = '<figure class="' . $imgwide_class . '">';
         $output .= '<a href="' . $photo_link . '">' .
-            '<img loading="lazy" alt="' . $title . '" src="' . $photo_url . '">' .
+            '<img loading="lazy" title="' . $title . '" src="' . $photo_url . '">' .
             '</a>';
-
-        // if ($title !== '') {
-        //     $output .= '<figcaption>' . $title . '</figcaption>';
-        // }
 
         $output .= '</figure>';
 

@@ -22,7 +22,7 @@ if (!function_exists('mirthe_photogrid_renderSelection')) {
             $photo_link = 'https://www.flickr.com/photos/' . rawurlencode($owner_path) . '/' . rawurlencode((string) $photo_id);
 
             $output .= '<div class="photogrid__selection-item"><a href="' . htmlspecialchars($photo_link, ENT_QUOTES, 'UTF-8') . '">' .
-                '<img loading="lazy" alt="' . $title . '" src="' . $photo_url . '">' .
+                '<img loading="lazy" title="' . $title . '" src="' . $photo_url . '">' .
                 '</a></div>' . "\n";
         }
 
