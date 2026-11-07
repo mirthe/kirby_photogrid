@@ -43,9 +43,13 @@ if (!function_exists('mirthe_photogrid')) {
             foreach ($photo_ids as $photo_id) {
                 $photo_info = mirthe_photogrid_getPhotoInfo($photo_id, $api_key);
                 if ($photo_info === null) {
-                    return '';
+                    continue;
                 }
                 $photos[] = $photo_info;
+            }
+
+            if ($photos === []) {
+                return '';
             }
 
             return mirthe_photogrid_renderSelection($photos, $user_name, $callsize, $layout);
