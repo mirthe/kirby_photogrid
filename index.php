@@ -9,6 +9,9 @@ require_once __DIR__ . '/photogrid.php';
 
 Kirby::plugin('mirthe/photogrid', [
     'options' => [
+        'apiKey'   => option('flickr.apiKey'),
+        'userID'   => option('flickr.userID'),
+        'username' => option('flickr.username'),
         'cache' => true
     ],
     'snippets' => [],

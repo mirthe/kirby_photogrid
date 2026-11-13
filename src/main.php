@@ -6,9 +6,9 @@ if (!function_exists('mirthe_photogrid')) {
         $tagselection = (string) $tag->tags;
         $photoid = (string) $tag->photo;
         $selection = trim((string) $tag->selection);
-        $api_key = (string) option('flickr.apiKey');
-        $user_id = (string) option('flickr.userID');
-        $user_name = (string) option('flickr.username');
+        $api_key = (string) option('mirthe.photogrid.apiKey');
+        $user_id = (string) option('mirthe.photogrid.userID');
+        $user_name = (string) option('mirthe.photogrid.username');
 
         if ($api_key === '') {
             return '';
