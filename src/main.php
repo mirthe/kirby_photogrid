@@ -4,6 +4,7 @@ if (!function_exists('mirthe_photogrid')) {
     function mirthe_photogrid($tag): string {
         $setid = (string) $tag->set;
         $tagselection = (string) $tag->tags;
+        $sort = strtolower(trim((string) $tag->sort));
         $photoid = (string) $tag->photo;
         $selection = trim((string) $tag->selection);
         $api_key = (string) option('mirthe.photogrid.apiKey');
@@ -22,6 +23,7 @@ if (!function_exists('mirthe_photogrid')) {
         $size = $callsize === 'small' ? 't' : 'w';
         $position = strtolower(trim((string) $tag->pos));
         $position = in_array($position, ['left', 'right', 'full', 'wide', 'fullwidth'], true) ? $position : 'full';
+        $sort = in_array($sort, ['asc', 'desc', 'random'], true) ? $sort : 'asc';
         $page = isset($_GET['p']) ? (int) $_GET['p'] : 1;
         $perPage = 50;
 
@@ -73,13 +75,13 @@ if (!function_exists('mirthe_photogrid')) {
             '&nojsoncallback=1' .
             '&media=photos' .
             '&content_types=0,1,2,3' .
-            '&sort=date-taken-desc';
+            '&sort=date-taken-' . ($tagselection !== '' && $sort === 'asc' ? 'asc' : 'desc');
 
         if ($setid !== '') {
             $url = $baseUrl . '&method=flickr.photosets.getPhotos&photoset_id=' . urlencode($setid);
             $flickr_link = 'https://www.flickr.com/photos/' . $user_name . '/albums/' . $setid;
         } elseif ($tagselection !== '') {
-            $url = $baseUrl . '&method=flickr.photos.search&tags=' . urlencode($tagselection) . '&tag_mode=all';
+            $url = $baseUrl . '&method=flickr.photos.search&tags=' . urlencode($tagselection) . '&tag_mode=all&extras=date_taken';
             $flickr_link = 'https://www.flickr.com/search/?user_id=' . $user_id . '&view_all=1&tags=' . urlencode($tagselection);
         } else {
             return '';
@@ -96,6 +98,14 @@ if (!function_exists('mirthe_photogrid')) {
         } else {
             $photo_array = $response->photos->photo ?? [];
             $page_count = 1;
+            if ($sort === 'random') {
+                shuffle($photo_array);
+            } else {
+                usort($photo_array, static function (object $left, object $right) use ($sort): int {
+                    $comparison = strcmp((string) ($left->datetaken ?? ''), (string) ($right->datetaken ?? ''));
+                    return $sort === 'asc' ? $comparison : -$comparison;
+                });
+            }
         }
 
         return mirthe_photogrid_renderPhotoGrid($photo_array, $user_name, $callsize, $size, $flickr_link, $page_count, $page);

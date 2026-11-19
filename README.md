@@ -24,6 +24,12 @@ Placed for example with a selection of tags:
 
     (photogrid: tags: Amorphis,Tilburg,20200125,fav)
 
+Tag results are sorted by date taken, oldest first by default. Use `sort: desc`
+for newest first or `sort: random` to shuffle the returned photos:
+
+    (photogrid: tags: Amorphis,Tilburg,20200125,fav sort: asc)
+    (photogrid: tags: Amorphis,Tilburg,20200125,fav sort: random)
+
 Or all the photo's in a set:
 
     (photogrid: set: 123)

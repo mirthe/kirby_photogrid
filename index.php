@@ -46,7 +46,8 @@ Kirby::plugin('mirthe/photogrid', [
                 'photo',
                 'selection',
                 'pos',
-                'size'
+                'size',
+                'sort'
             ],
             'html' => function ($tag) {
                 return mirthe_photogrid($tag);
